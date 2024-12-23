@@ -9,12 +9,6 @@ function App() {
 
     function handleClickCell(rowIndex, colIndex) {
         setGameTurns(prevTurns => {
-            // // Used to ensure that we use the correct current player to add to the Log in based on the last turn
-            // // We use this because we are calling setActivePlayer before setGameTurns in the same function
-            // let currentPlayer = 'X';
-            // if (prevTurns.length > 0 && prevTurns[0] === 'X') currentPlayer = 'O';
-            // console.log("currentPlayer:", currentPlayer);
-
             const updatedTurns = [
                 {
                     cell: { row: rowIndex, col: colIndex },
@@ -22,13 +16,11 @@ function App() {
                 },
                 ...prevTurns
             ];
-
             return updatedTurns;
         });
 
         setActivePlayer((currentPlayer) => currentPlayer === 'X' ? 'O' : 'X');
     }
-    console.log("activePlayer:", activePlayer);
 
     return (
         <main>
@@ -39,7 +31,7 @@ function App() {
                 </ol>
                 <GameBoard onClickCell={handleClickCell} turns={gameTurns} />
             </div>
-            <Log />
+            <Log turns={gameTurns} />
         </main>
     );
 }
